@@ -13,6 +13,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 
+import utils.EmailUtils;
 import utils.ExtentReportManager;
 import utils.Log;
 
@@ -30,6 +31,9 @@ public class BaseTest {
 	@AfterSuite
 	public void teardownReport() {
 		extent.flush();
+		String reportPath = ExtentReportManager.reportPath;
+		System.out.println("Report path is: " + reportPath);
+		EmailUtils.sendTestReport(reportPath);
 	}
 	
 	@BeforeMethod

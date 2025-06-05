@@ -41,12 +41,14 @@ public class LoginTest extends BaseTest {
 	}
 
 //	@Test(dataProvider = "LoginData2")
+//	@Test
+//	@Parameters({"username", "password"})
+	
 	@Test
-	@Parameters({"username", "password"})
-	public void testValidLogin(String username, String password) {
+	public void testValidLogin() {
 
 		Log.info("Starting login test...");
-		test = ExtentReportManager.createTest("Login Test - " + username);
+		test = ExtentReportManager.createTest("Login Test - ");
 
 		test.info("Naviagtion to URL");
 		LoginPage loginPage = new LoginPage(driver);
@@ -54,11 +56,11 @@ public class LoginTest extends BaseTest {
 		Log.info("Adding credentials...");
 		test.info("Adding credentials...");
 
-//		loginPage.enterUsername("admin@yourstore.com");
-//		loginPage.enterPassword("admin");
+		loginPage.enterUsername("admin@yourstore.com");
+		loginPage.enterPassword("admin");
 
-		loginPage.enterUsername(username);
-		loginPage.enterPassword(password);
+//		loginPage.enterUsername(username);
+//		loginPage.enterPassword(password);
 
 		test.info("Clicking on Login Button");
 		loginPage.clickLogin();

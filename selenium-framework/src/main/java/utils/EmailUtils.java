@@ -1,4 +1,4 @@
-package Demo;
+package utils;
 
 import java.io.File;
 import java.util.Properties;
@@ -13,11 +13,8 @@ import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
 
-
-
-public class EmailSender {
-
-	public static void main(String[] args) {
+public class EmailUtils {
+	public static void sendTestReport(String reportPath) {
 		final String senderEmail = "apidakosha1328@gmail.com";
 		final String appPassword = "dzcpmgjrllndmmwh";
 		final String recipientEmail = "apidakosha1328@gmail.com";
@@ -36,7 +33,6 @@ public class EmailSender {
 			}
 		});
 		session.setDebug(true);
-
 		try {
 			// create email message
 			Message message = new MimeMessage(session);
@@ -44,24 +40,25 @@ public class EmailSender {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
 			message.setSubject("Test Email from Automation");
 
-	//		message.setText("Hello, \n This is a test email sent from Java \n Regards,\n QA Team");
-			
+			// message.setText("Hello, \n This is a test email sent from Java \n Regards,\n
+			// QA Team");
+
 			// Email body part
 			MimeBodyPart textPart = new MimeBodyPart();
 			textPart.setText("Hello, \n\n This is a test email sent from Java \n\n Regards,\n QA Team");
-			
-			//Attachment part
+
+			// Attachment part
 			MimeBodyPart attachmentPart = new MimeBodyPart();
-			String filePath = System.getProperty("user.dir") + "/reports/ExtentReport_2025-06-03_19-32-05.html";
-			System.out.println("Attachment path is: " + filePath);
-			attachmentPart.attachFile(new File(filePath));
-			
-			//combine body and attachment part
+			//String filePath = System.getProperty("user.dir") + "/reports/ExtentReport_2025-06-03_19-32-05.html";
+			System.out.println("Attachment path is: " + reportPath);
+			attachmentPart.attachFile(new File(reportPath));
+
+			// combine body and attachment part
 			MimeMultipart multipart = new MimeMultipart();
 			multipart.addBodyPart(textPart);
 			multipart.addBodyPart(attachmentPart);
 			message.setContent(multipart);
-			
+
 			// send email
 			Transport.send(message);
 			System.out.println("Email sent successfully with attachments...");
@@ -70,4 +67,5 @@ public class EmailSender {
 			e.printStackTrace();
 		}
 	}
+
 }
